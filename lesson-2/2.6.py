@@ -49,11 +49,10 @@ classmethod
 analytics = dict.fromkeys(goods[0][1], [])
 print(f'словарь для сведения аналитики о товарах: {analytics}')
 
-for i in range(goods_qty):
-    analytics['название'].append(goods[i][1]['название'])
-    """please help! всю голову сломал, но не пойму, почему обновляются списки по всем ключам, а не только по указанному
-    analytics['название'], моя аналитика не работает. плиз, покажите правильное решение"""
-    analytics['цена'].append(goods[i][1]['цена'])
-    analytics['количество'].append(goods[i][1]['количество'])
-    analytics['ед'].append(goods[i][1]['ед'])
+for key in analytics.keys():
+    values = []
+    for i in range(goods_qty):
+        values.append(goods[i][1][key])
+    analytics[key] = values
+
 print(f'словарь заполненный аналитикой о товарах: {analytics}')
