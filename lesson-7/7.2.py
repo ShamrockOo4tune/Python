@@ -5,32 +5,45 @@
 для костюма (2 * H + 0.3). Проверить работу этих методов на реальных данных.
 Реализовать общий подсчет расхода ткани. Проверить на практике полученные на этом уроке знания: реализовать абстрактные
 классы для основных классов проекта, проверить на практике работу декоратора @property."""
+from abc import ABC, abstractmethod
 
 
-class Clothes:
+class Clothes(ABC):
 
-    def __init__(self, name='', param=0.0):
-        self.name = name.lower()
-        self.param = param
+    @property
+    @abstractmethod
+    def calc_qty(self) -> float:
+        pass
+
+
+class Coat(Clothes):
+
+    def __init__(self, name: str, size: float):
+        self.name = name
+        self.__size = size
 
     @property
     def calc_qty(self) -> float:
-        qty = 0.0
-        if self.name == 'пальто':
-            qty = self.param / 6.5 + 0.5
-        elif self.name == 'костюм':
-            qty = 2 * self.param + 0.3
-        else:
-            print('Неизвестный тип одежды', end='\t')
+        qty = self.__size / 6.5 + 0.5
         return qty.__round__(2)
 
 
-a = Clothes('ПаЛьто', 46)
-b = Clothes('костюм', 1.70)
-c = Clothes('шапка', 2)
-d = Clothes()
+class Suit(Clothes):
+
+    def __init__(self, name: str, height: float):
+        self.name = name
+        self.__height = height
+
+    @property
+    def calc_qty(self) -> float:
+        qty = 2 * self.__height + 0.3
+        return qty.__round__(2)
+
+
+a = Coat('ПаЛьто', 46)
+b = Suit('костюм', 1.70)
+
 
 print(a.calc_qty)
 print(b.calc_qty)
-print(c.calc_qty)
-print(d.calc_qty)
+print(1)
